@@ -1,0 +1,21 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: bipinfo
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.136.196.81:3306/metrixs_admin?useSSL=false&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+    dbcp2:
+      initialSize: 5
+      minIdle: 5
+      max-total: 10
+      max-wait-millis: 200
+      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/  #http://10.136.197.22:8761/eureka/

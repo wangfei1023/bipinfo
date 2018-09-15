@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tk.dao.SysLogMapper">
+ 	<!-- 获取日志统计信息 -->
+	<select id="getLogInfo" parameterType="com.tk.model.SysLogParamModel" resultType="com.tk.model.SysLogModel">
+		SELECT 
+			COUNT(service_id) AS serviceCount ,
+			service_id AS ServiceId 
+		FROM
+			sys_logging
+			
+			<if test="serviceId !=null and serviceId != '' ">
+				<choose>
+					<when test="startTime==null and endTime==null">
+						where service_id = #{serviceId} 
+					</when>
+					<when test="startTime!=null and endTime==null">
+						where service_id = #{serviceId} 
+							and start_time &gt;= #{startTime}
+					</when>
+					<when test="startTime!=null and endTime!=null">
+						where service_id = #{serviceId} 
+							and start_time &gt;= #{startTime} 
+							and start_time &lt;= #{endTime}
+					</when>
+				</choose>
+			</if>
+		GROUP BY 
+			service_id;
+	</select>
+</mapper>
